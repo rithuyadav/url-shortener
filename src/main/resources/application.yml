@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: url-shortener
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
+
+logging:
+  level:
+    root: INFO
+    com.example.urlshortener: INFO
+
+# ---------------------------------------------------------------------------
+# Application-specific configuration (bound via AppProperties)
+# ---------------------------------------------------------------------------
+app:
+  base-url: "http://localhost:8080"
+  short-code:
+    length: 7
+    max-generation-attempts: 5
+  cache:
+    max-size: 10000
+    ttl-minutes: 10
+  rate-limit:
+    enabled: true
+    create:
+      capacity: 20
+      refill-tokens: 20
+      refill-period-seconds: 60
+    redirect:
+      capacity: 120
+      refill-tokens: 120
+      refill-period-seconds: 60
+  cleanup:
+    fixed-delay-ms: 60000
